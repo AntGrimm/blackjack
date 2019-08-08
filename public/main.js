@@ -36,6 +36,7 @@ const createDeck = () => {
   }
   console.log(state.deck)
 }
+
 const shuffleDeck = () => {
   for (let i = state.deck.length - 1; i >= 0; i--) {
     const j = Math.floor(Math.random() * i)
@@ -46,6 +47,7 @@ const shuffleDeck = () => {
   }
   console.log(state.deck)
 }
+
 const dealPlayerHand = () => {
   for (let i = 0; i < 2; i++) {
     // remove card from the deck
@@ -57,11 +59,20 @@ const dealPlayerHand = () => {
 }
 
 const dealDealerHand = () => {
+  const playerHandValue = document.querySelector('.player-hand-value')
+  const playerName = document.querySelector('.player-name')
+  const dealerName = document.querySelector('.dealer-name')
   for (let i = 0; i < 2; i++) {
     // remove card from the deck
     const dealtCard = state.deck.pop()
     // add to the dealer hand
     state.dealerHand.push(dealtCard)
+  }
+  getPlayerHandTotal()
+  if (playerHandValue.textContent === 21) {
+    playerName.textContent = 'Player Wins!'
+    dealerName.textContent = 'Dealer Loses!'
+    addRemoveButtonsValues()
   }
   console.log(state.dealerHand)
 }
@@ -100,8 +111,16 @@ const getDealerHandTotal = () => {
   console.log(dealerHandTotal)
 }
 
+// adds hit/stand buttons and removes reset, dealer hand value
+const addRemoveButtonsValues = () => {
+  document.querySelector('.hit').classList.add('hide')
+  document.querySelector('.stand').classList.add('hide')
+  document.querySelector('.reset').classList.remove('hide')
+  document.querySelector('.dealer-hand-value').classList.remove('hide')
+}
+
+// press hit button
 const playerDrawCard = () => {
-  // press hit button
   const playerHandValue = document.querySelector('.player-hand-value')
   const playerName = document.querySelector('.player-name')
   const dealerName = document.querySelector('.dealer-name')
@@ -111,15 +130,55 @@ const playerDrawCard = () => {
     // add to the player hand
     state.playerHand.push(dealtCard)
   }
+  // Determine when player busts
   getPlayerHandTotal()
   if (playerHandValue.textContent > 21) {
     playerName.textContent = 'Player Bust!'
     dealerName.textContent = 'Dealer Wins!'
-    document.querySelector('.hit').classList.add('hide')
-    document.querySelector('.stand').classList.add('hide')
-    document.querySelector('.reset').classList.remove('hide')
+    addRemoveButtonsValues()
+  } else if (playerHandValue.textContent === 21) {
+    playerName.textContent = 'Player Wins!'
+    dealerName.textContent = 'Dealer Loses!'
+    addRemoveButtonsValues()
   }
   console.log(state.playerHand)
+}
+
+// When player hits stand button
+const playerStand = () => {
+  const dealerHandValue = document.querySelector('.dealer-hand-value')
+  const playerHandValue = document.querySelector('.player-hand-value')
+  const dealerName = document.querySelector('.dealer-name')
+  const playerName = document.querySelector('.player-name')
+
+  addRemoveButtonsValues()
+
+  while (dealerHandValue.textContent < 17) {
+    for (let i = 0; i < 1; i++) {
+      const dealtCard = state.deck.pop()
+      // add to dealer hand
+      state.dealerHand.push(dealtCard)
+      getDealerHandTotal()
+    }
+  }
+
+  // Determine when dealer busts and who is the winner
+  getDealerHandTotal()
+  getPlayerHandTotal()
+  if (dealerHandValue.textContent > 21) {
+    playerName.textContent = 'Player Wins!'
+    dealerName.textContent = 'Dealer Bust!'
+  } else if (dealerHandValue.textContent > playerHandValue.textContent) {
+    playerName.textContent = 'Player Loses!'
+    dealerName.textContent = 'Dealer Wins!'
+  } else if (dealerHandValue.textContent < playerHandValue.textContent) {
+    playerName.textContent = 'Player Wins!'
+    dealerName.textContent = 'Dealer Loses!'
+  } else if (dealerHandValue.textContent === playerHandValue.textContent) {
+    playerName.textContent = 'Draw!'
+    dealerName.textContent = 'Draw!'
+  }
+  console.log(state.dealerHand)
 }
 
 const resetGame = () => {
@@ -138,6 +197,7 @@ const resetGame = () => {
   document.querySelector('.hit').classList.remove('hide')
   document.querySelector('.stand').classList.remove('hide')
   document.querySelector('.reset').classList.add('hide')
+  document.querySelector('.dealer-hand-value').classList.add('hide')
 }
 
 const main = () => {
@@ -150,8 +210,6 @@ const main = () => {
 }
 
 document.addEventListener('DOMContentLoaded', main)
-
-// player hand hit, draw card
-document.querySelector('.player-hand-value')
 document.querySelector('.hit').addEventListener('click', playerDrawCard)
 document.querySelector('.reset').addEventListener('click', resetGame)
+document.querySelector('.stand').addEventListener('click', playerStand)
