@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Blackjack</title>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/screen.css">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/screen.css" />
   </head>
   <body>
-    <h1 class='hello-world'></h1>
+    <h1>Blackjack</h1>
+    <header class="buttons">
+      <button class="hit">Hit</button>
+      <button class="reset hide">Reset</button>
+      <button class="stand">Stand</button>
+    </header>
+    <main>
+      <section class="header-area">
+        <header class="player-hand-value">Player Value</header>
+        <header class="dealer-hand-value">Dealer Value</header>
+      </section>
+      <section class="card-display-area">
+        <ul class="player-hand-cards">
+          <p class="player-name">Player</p>
+          <li><img src="./images/king_of_diamonds2.svg" /></li>
+          <li><img src="./images/king_of_diamonds2.svg" /></li>
+        </ul>
+        <ul class="dealer-hand-cards">
+          <p class="dealer-name">Dealer</p>
+          <li><img src="./images/king_of_diamonds2.svg" /></li>
+          <li><img src="./images/king_of_diamonds2.svg" /></li>
+        </ul>
+      </section>
+    </main>
     <script src="/main.js" charset="utf-8"></script>
   </body>
 </html>

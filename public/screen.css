@@ -9,4 +9,37 @@ html {
 body {
   margin: 0;
   min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.header-area {
+  display: flex;
+  flex-direction: row;
+}
+
+main > section > header {
+  padding: 1.5rem;
+}
+
+.card-display-area {
+  display: flex;
+  flex-direction: row;
+}
+
+main > section > ul {
+  padding: 1.5rem;
+  list-style: none;
+}
+
+.hide {
+  display: none;
 }
