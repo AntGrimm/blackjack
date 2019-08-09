@@ -161,7 +161,6 @@ const playerStand = () => {
       getDealerHandTotal()
     }
   }
-
   // Determine when dealer busts and who is the winner
   getDealerHandTotal()
   getPlayerHandTotal()

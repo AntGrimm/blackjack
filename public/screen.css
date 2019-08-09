@@ -24,6 +24,7 @@ body {
 .header-area {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 main > section > header {
