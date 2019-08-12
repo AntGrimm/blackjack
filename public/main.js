@@ -28,7 +28,7 @@ const createDeck = () => {
         rank: rank.name,
         value: rank.value,
         suit: suit,
-        image: `./images/${rank.value}_of_${suit}.svg`
+        image: `./images/${rank.name}_of_${suit}.svg`
       })
     })
   })
@@ -64,6 +64,11 @@ const playerDrawCard = () => {
 const dealerDrawCard = () => {
   const dealtCard = deck.pop()
   dealerHand.push(dealtCard)
+  const li = document.createElement('li')
+  const image = document.createElement('img')
+  image.src = dealtCard.image
+  li.appendChild(image)
+  document.querySelector('.dealer-hand-cards').appendChild(li)
 }
 
 const dealPlayerHand = () => {
@@ -113,7 +118,6 @@ const addRemoveButtonsValues = () => {
   document.querySelector('.hit').classList.add('hide')
   document.querySelector('.stand').classList.add('hide')
   document.querySelector('.reset').classList.remove('hide')
-  document.querySelector('.dealer-hand-value').classList.remove('hide')
 }
 
 // press hit button
@@ -183,7 +187,6 @@ const resetGame = () => {
   document.querySelector('.hit').classList.remove('hide')
   document.querySelector('.stand').classList.remove('hide')
   document.querySelector('.reset').classList.add('hide')
-  document.querySelector('.dealer-hand-value').classList.add('hide')
 }
 
 const main = () => {

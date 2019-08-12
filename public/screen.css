@@ -41,6 +41,11 @@ main > section > ul {
   list-style: none;
 }
 
+ul > li > img {
+  width: 50%;
+  height: auto;
+}
+
 .hide {
   display: none;
 }
