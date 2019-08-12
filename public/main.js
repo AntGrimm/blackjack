@@ -30,7 +30,8 @@ const createDeck = () => {
       state.deck.push({
         rank: rank.name,
         value: rank.value,
-        suit: suit
+        suit: suit,
+        image: `./images/${rank.value}_of_${suit}.svg`
       })
     }
   }
@@ -48,12 +49,31 @@ const shuffleDeck = () => {
   console.log(state.deck)
 }
 
+const dealCardImage = () => {
+  // Create an li and image tag
+  const li = document.createElement('li')
+  const image = document.createElement('img')
+  // set content of li and image tag
+  image.src = state.deck.image
+  li.appendChild(image)
+  // add li tag to the dom
+  document.querySelector('.player-hand-cards').appendChild(li)
+}
+
 const dealPlayerHand = () => {
   for (let i = 0; i < 2; i++) {
     // remove card from the deck
     const dealtCard = state.deck.pop()
     // add to the player hand
     state.playerHand.push(dealtCard)
+    // Create an li and image tag
+    const li = document.createElement('li')
+    const image = document.createElement('img')
+    // set content of li and image tag
+    image.src = state.deck[2].image
+    li.appendChild(image)
+    // add li tag to the dom
+    document.querySelector('.player-hand-cards').appendChild(li)
   }
   console.log(state.playerHand)
 }
@@ -124,12 +144,20 @@ const playerDrawCard = () => {
   const playerHandValue = document.querySelector('.player-hand-value')
   const playerName = document.querySelector('.player-name')
   const dealerName = document.querySelector('.dealer-name')
+  // Create an li and image tag
+  const li = document.createElement('li')
+  const image = document.createElement('img')
   for (let i = 0; i < 1; i++) {
     // remove card from the deck
     const dealtCard = state.deck.pop()
     // add to the player hand
     state.playerHand.push(dealtCard)
+    // set content of li and image tag
+    image.src = state.deck[1].image
+    li.appendChild(image)
   }
+  // add li tag to the dom
+  document.querySelector('.player-hand-cards').appendChild(li)
   // Determine when player busts
   getPlayerHandTotal()
   if (playerHandValue.textContent > 21) {
@@ -174,8 +202,8 @@ const playerStand = () => {
     playerName.textContent = 'Player Wins!'
     dealerName.textContent = 'Dealer Loses!'
   } else if (dealerHandValue.textContent === playerHandValue.textContent) {
-    playerName.textContent = 'Draw!'
-    dealerName.textContent = 'Draw!'
+    playerName.textContent = 'Push!'
+    dealerName.textContent = 'Push!'
   }
   console.log(state.dealerHand)
 }
